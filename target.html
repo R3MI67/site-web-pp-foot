@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Target — Semaine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">Semaine</a>
+  <nav class="site-nav">
+    <a href="index.html">Accueil</a>
+    <a href="planning.html">Planning</a>
+    <a href="niveau.html">Niveau</a>
+    <a href="matos.html">Matériel</a>
+    <a href="poste.html">Poste</a>
+    <a href="target.html" class="active">Target</a>
+    <a href="frequence.html">Fréquence</a>
+  </nav>
+</header>
+
+<main>
+  <section class="page-intro">
+    <h1>Ton joueur target</h1>
+    <p>Le joueur pro à qui tu ressmble ou du moins lequel tu voudrais avoir le style et les qualités. Ça nous permet de comprendre ton profil</p>
+
+    <div class="field-row">
+      <label for="poste-select">Poste</label>
+      <select id="poste-select"></select>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="category-title" class="category-title"></h2>
+    <div id="player-grid" class="player-grid"></div>
+  </section>
+
+  
+<section>
+    <div class="btn-valider-container">
+      <a href="frequence.html" class="btn-valider">Valider</a>
+    </div>
+  </section>
+
+</main>
+
+<script src="players.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matériel — Semaine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">Semaine</a>
+  <nav class="site-nav">
+    <a href="index.html">Accueil</a>
+    <a href="planning.html">Planning</a>
+    <a href="niveau.html">Niveau</a>
+    <a href="matos.html" class="active">Matériel</a>
+    <a href="poste.html">Poste</a>
+    <a href="target.html">Target</a>
+    <a href="frequence.html">Fréquence</a>
+  </nav>
+</header>
+
+<main>
+  <section class="page-intro">
+    <h1>Ton matériel</h1>
+    <p>Tu as quoi à ta disposition ?</p>
+  </section>
+
+  <section class="material-grid" id="material-grid">
+    <div class="material-option" data-material="chaussures" role="button" tabindex="0">
+      <h3>Maison vide</h3>
+      <p>Aucun matériel (pour l'instant), uniquement au poids du corps avec juste de la sueur et de la motivation </p>
+    </div>
+    <div class="material-option" data-material="protege-tibias" role="button" tabindex="0">
+      <h3>Maison équipée</h3>
+      <p>Un peu de matériel pour s'amuser : barre de traction, élastiques, poids, etc.</p>
+    </div>
+    <div class="material-option" data-material="tenue" role="button" tabindex="0">
+      <h3>Salle commercial</h3>
+      <p>Accès à une salle, pas forcément bien équipé, bondé la plupart du temps mais avec le minimum</p>
+    </div>
+    <div class="material-option" data-material="sac" role="button" tabindex="0">
+      <h3>Salle complète</h3>
+      <p>De la place et du matériel disponible, avec des sled, des barre, etc.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="btn-valider-container">
+      <a href="poste.html" class="btn-valider">Valider</a>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

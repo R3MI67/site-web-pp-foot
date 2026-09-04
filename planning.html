@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planning — Semaine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">Semaine</a>
+  <nav class="site-nav">
+    <a href="index.html">Accueil</a>
+    <a href="planning.html" class="active">Planning</a>
+    <a href="niveau.html">Niveau</a>
+    <a href="matos.html">Matériel</a>
+    <a href="poste.html">Poste</a>
+    <a href="target.html">Target</a>
+    <a href="frequence.html">Fréquence</a>
+  </nav>
+</header>
+
+<main>
+  <section class="page-intro">
+    <h1>Ta semaine type</h1>
+    <p>Il faut qu'on sache comment tu t'entraines en club pour s'organiser autour.
+      Fais glisser les cases</p>
+
+    <div id="activity-bank" class="bank" aria-label="Activités à placer">
+      <div class="chip" draggable="true" data-id="chip-match" style="background:#B5533C">Match</div>
+      <div class="chip" draggable="true" data-id="chip-entrainement-1" style="background:#2F5D53">Entraînement</div>
+      <div class="chip" draggable="true" data-id="chip-entrainement-2" style="background:#2F5D53">Entraînement</div>
+      <div class="chip" draggable="true" data-id="chip-entrainement-3" style="background:#2F5D53">Entraînement</div>
+      <div class="chip" draggable="true" data-id="chip-entrainement-4" style="background:#2F5D53">Entraînement</div>
+      <div class="chip" draggable="true" data-id="chip-entrainement-5" style="background:#2F5D53">Entraînement</div>
+    </div>
+  </section>
+
+  <section class="week-board">
+    <div class="day-column">
+      <h2>Lundi</h2>
+      <div class="drop-zone" data-day="lundi"></div>
+    </div>
+    <div class="day-column">
+      <h2>Mardi</h2>
+      <div class="drop-zone" data-day="mardi"></div>
+    </div>
+    <div class="day-column">
+      <h2>Mercredi</h2>
+      <div class="drop-zone" data-day="mercredi"></div>
+    </div>
+    <div class="day-column">
+      <h2>Jeudi</h2>
+      <div class="drop-zone" data-day="jeudi"></div>
+    </div>
+    <div class="day-column">
+      <h2>Vendredi</h2>
+      <div class="drop-zone" data-day="vendredi"></div>
+    </div>
+    <div class="day-column">
+      <h2>Samedi</h2>
+      <div class="drop-zone" data-day="samedi"></div>
+    </div>
+    <div class="day-column">
+      <h2>Dimanche</h2>
+      <div class="drop-zone" data-day="dimanche"></div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="btn-valider-container">
+      <a href="niveau.html" class="btn-valider">Valider</a>
+    </div>
+  </section>
+
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
