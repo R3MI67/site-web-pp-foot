@@ -271,3 +271,49 @@ document.addEventListener('DOMContentLoaded', () => {
   const fromUrl = params.get('poste');
   renderCategory(fromUrl || postes[0].slug);
 });
+
+
+
+// ---------- Logique de la page Infos perso ----------
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('infos-form');
+  if (!form) return; // pas sur la page infos
+ 
+  const currentLabel = document.getElementById('infos-current');
+  const validateBtn = document.getElementById('validate-btn');
+ 
+  form.addEventListener('submit', (e) => e.preventDefault());
+ 
+  validateBtn.addEventListener('click', () => {
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom = document.getElementById('nom').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const naissance = document.getElementById('naissance').value;
+    const sexeInput = form.querySelector('input[name="sexe"]:checked');
+ 
+    if (!prenom || !nom || !email || !naissance || !sexeInput){
+      currentLabel.textContent = 'Remplis tous les champs avant de valider.';
+      return;
+    }
+ 
+    const idx = currentStepIndex();
+    const params = new URLSearchParams(window.location.search);
+    params.set('prenom', prenom);
+    params.set('nom', nom);
+    params.set('email', email);
+    params.set('naissance', naissance);
+    params.set('sexe', sexeInput.value);
+ 
+    currentLabel.innerHTML = prenom + ' ' + nom + ' validé ✓';
+    validateBtn.disabled = true;
+ 
+    setTimeout(() => {
+      if (idx > -1 && idx + 1 < STEPS.length){
+        window.location.href = STEPS[idx + 1].file + '?' + params.toString();
+      } else {
+        window.location.href = 'index.html';
+      }
+    }, 700);
+  });
+});
+ 

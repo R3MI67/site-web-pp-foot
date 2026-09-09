@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tes infos — Semaine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">MyProg</a>
+  <nav class="site-nav">
+    <a href="index.html">Accueil</a>
+    <a href="infos.html" class="active">Infos</a>
+    <a href="planning.html">Planning</a>
+    <a href="niveau.html">Niveau</a>
+    <a href="matos.html">Matériel</a>
+    <a href="poste.html">Poste</a>
+    <a href="target.html">Target</a>
+    <a href="frequence.html">Fréquence</a>
+    <a href="pp.html">Préparation physique</a>
+  </nav>
+</header>
+
+<main>
+  <section class="page-intro">
+    <h1>Quelques infos sur toi</h1>
+    <p>Pour mieux te cerner ...</p>
+  </section>
+
+  <form id="infos-form" class="infos-form">
+    <div class="field-pair">
+      <div class="field-group">
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Léo" autocomplete="given-name">
+      </div>
+      <div class="field-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Martin" autocomplete="family-name">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label for="email">Adresse mail</label>
+      <input type="email" id="email" name="email" placeholder="leo.martin@email.com" autocomplete="email">
+    </div>
+
+    <div class="field-pair">
+      <div class="field-group">
+        <label for="naissance">Date de naissance</label>
+        <input type="date" id="naissance" name="naissance" autocomplete="bday">
+      </div>
+      <div class="field-group">
+        <label>Sexe</label>
+        <div class="pill-choice">
+          <label class="pill">
+            <input type="radio" name="sexe" value="femme">
+            <span>Femme</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="sexe" value="homme">
+            <span>Homme</span>
+          </label>
+          <label class="pill">
+            <input type="radio" name="sexe" value="autre">
+            <span>Autre</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <a class="cta" href="planning.html">Valider</a>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
