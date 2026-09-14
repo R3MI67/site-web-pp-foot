@@ -9,18 +9,11 @@
 <body>
 
 <header class="site-header">
-  <a href="index.html" class="logo">Semaine</a>
-  <nav class="site-nav">
-    <a href="index.html">Accueil</a>
-    <a href="infos.html">Infos</a>
-    <a href="planning.html">Planning</a>
-    <a href="niveau.html" class="active">Niveau</a>
-    <a href="matos.html">Matériel</a>
-    <a href="poste.html">Poste</a>
-    <a href="target.html">Target</a>
-    <a href="frequence.html">Fréquence</a>
-    <a href="pp.html">Préparation physique</a>
-  </nav>
+  <a href="index.html" class="logo">MyProg</a>
+  <div class="progress-wrap" aria-label="Progression du questionnaire">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-text" id="progress-text"></span>
+  </div>
 </header>
 
 <main>
@@ -30,12 +23,21 @@
   </section>
 
   <section class="pyramid-wrap">
-    <div id="pyramid" aria-label="Sélection du niveau"></div>
+    <div class="pyramid-row shake-only">
+      <div class="pyramid-col">
+        <div id="pyramid" aria-label="Sélection du niveau"></div>
+        <p class="pyramid-caption">Foot à 11</p>
+      </div>
+      <div class="pyramid-col" id="pyramid-2-col" style="display:none;">
+        <div id="pyramid-2" aria-label="Sélection du niveau (2)"></div>
+        <p class="pyramid-caption">Foot à 8</p>
+      </div>
+    </div>
   </section>
 
   <section>
     <div class="btn-valider-container">
-      <a href="matos.html" class="btn-valider">Valider</a>
+      <a href="matos.html" id="valider-niveau" class="btn-valider">Valider</a>
     </div>
   </section>
 

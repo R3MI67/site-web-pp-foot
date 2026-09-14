@@ -19,10 +19,12 @@ const PLAYERS_BY_CATEGORY = {
     ["Keylor Navas", ["Mental", "Réflexes", "Exemplarité"]],
     ["Jan Oblak", ["Constance", "Placement", "Réflexes"]],
     ["Gianluigi Donnarumma", ["Irrégulier", "Exceptionnel sur la ligne", "Réflexes", "Envergure"]],
-    ["Emiliano Martinez", ["Provocateur", "Mental", "Lecture du jeu", "Expert pénalty"]]
+    ["Emiliano Martinez", ["Provocateur", "Mental", "Lecture du jeu", "Expert pénalty"]],
+    ["Marc-André Ter Stegen", ["Jeu au pied", "Reflex", "Lecture du jeu"]],
+    ["David De Gea", ["Imposant", "Reflex"]],
   ],
 
-  defenseurs: [
+  defenseur: [
     ["Franz Beckenbauer", ["relance", "vision de jeu", "charisme"]],
     ["Franco Baresi", ["intelligence tactique", "leadership", "libéro", "organisateur"]],
     ["Paolo Maldini", ["élégance", "technique", "sens du placement", "régularité"]],
@@ -37,10 +39,11 @@ const PLAYERS_BY_CATEGORY = {
     ["Gerard Piqué", ["calme", "grand", "intelligence de jeu"]],
     ["Marquinhos", ["lecture du jeu", "polyvalence", "exemplaire", "mentalité"]],
     ["Saliba", ["puissance", "placement", "propre", "sérénité"]],
-    ["Dias", ["communication", "sens du placement", "impact", "perfectionnisme"]]
+    ["Dias", ["communication", "sens du placement", "impact", "perfectionnisme"]],
+    ["Antonio Rüdiger", ["agressif", "combat", "engagement total"]]
   ],
 
-  lateraux: [
+  lateral: [
     ["Roberto Carlos", ["puissance", "charisme", "offensif"]],
     ["Cafu", ["vitesse", "endurance", "leadership"]],
     ["Philipp Lahm", ["intelligence tactique", "polyvalent", "propre", "efficace"]],
@@ -49,7 +52,7 @@ const PLAYERS_BY_CATEGORY = {
     ["Marcelo", ["créatif", "spectaculaire", "imprévisible", "artiste"]],
     ["Javier Zanetti", ["professionnalisme", "polyvalent", "infatigable", "exemplaire"]],
     ["Joshua Kimmich", ["rigueur", "propreté", "efficacité"]],
-    ["Bixente Lizarazu", ["petit mais redoutable", "rigueur défensive", "énergie offensive"]],
+    ["Bixente Lizarazu", ["Petit mais redoutable", "rigueur", "énergique"]],
     ["Gianluca Zambrotta", ["élégant", "polyvalent"]],
     ["Maicon", ["puissance", "précision", "solidité"]],
     ["David Alaba", ["intelligence de jeu", "régularité"]],
@@ -60,11 +63,10 @@ const PLAYERS_BY_CATEGORY = {
     ["Achraf Hakimi", ["explosif", "rapide", "intelligent", "polyvalent"]],
     ["Patrice Evra", ["énergique", "engagé", "solide", "moteur offensif"]],
     ["Alphonso Davies", ["vitesse", "audace offensive"]],
-    ["Theo Hernandez", ["offensif", "puissant", "agressif", "finisseur"]],
-    ["Andy Robertson", ["travail", "ténacité"]]
+    ["Theo Hernandez", ["offensif", "puissant", "agressif", "finisseur"]]
   ],
 
-  milieux: [
+  milieu: [
     ["Zinédine Zidane", ["puissance", "grâce", "technique"]],
     ["Luka Modric", ["intelligence", "qualité de passe"]],
     ["Xavi Hernandez", ["technique", "propre", "vision du jeu"]],
@@ -91,36 +93,38 @@ const PLAYERS_BY_CATEGORY = {
     ["Jude Bellingham", ["polyvalence", "puissance", "technique"]],
     ["Paul Pogba", ["irrégularité", "puissance", "créativité", "talentueux"]],
     ["Pedri", ["vista", "technique", "qualité de passe", "élégance"]],
-    ["Vitinha", ["vista", "technique", "qualité de passe", "finition"]]
+    ["Vitinha", ["vista", "technique", "qualité de passe", "finition"]],
+    ["Bruno Fernandes", ["qualité de passe", "coup franc", "contrôle du tempo", "intelligence"]]
   ],
 
-  ailiers: [
-    ["Cristiano Ronaldo", ["puissance", "technique", "finition", "force"]],
-    ["Lionel Messi", ["dribble", "vivacité", "créativité", "finition", "précision"]],
-    ["Ronaldinho", ["magicien", "dribbles", "créativité"]],
-    ["Luís Figo", ["élégance", "visionnaire", "centre", "dribble"]],
-    ["David Beckham", ["coups francs", "centre", "précision"]],
-    ["Arjen Robben", ["faux pied", "frappe imparable"]],
-    ["Franck Ribéry", ["percutant", "imprévisible", "dynamiteur de défense"]],
-    ["Kylian Mbappé", ["vitesse", "technique", "sens du but"]],
-    ["Eden Hazard", ["équilibre", "vitesse", "créativité", "puissance"]],
-    ["Ángel Di María", ["polyvalent", "technique", "précision"]],
-    ["Alexis Sánchez", ["énergique", "polyvalent", "vivacité", "sens du but"]],
-    ["Sadio Mané", ["puissance", "explosif", "imprévisible"]],
-    ["Mohamed Salah", ["finition", "dribble"]],
-    ["Ousmane Dembélé", ["technique", "deux pieds", "vitesse", "fragile"]],
-    ["Adama Traoré", ["force physique", "vitesse"]],
-    ["Neymar", ["artiste", "dribble", "vitesse", "feinte"]],
-    ["Vinícius Júnior", ["provocateur", "rapide", "dribble"]],
-    ["Lamine Yamal", ["récréatif", "dribble", "passeur"]],
-    ["Raphinha", ["timing", "finition", "vitesse", "abnégation"]],
-    ["Michael Olise", ["technique", "frappe", "vision de jeu", "qualité de passe"]],
-    ["Cole Palmer", ["calme", "créativité", "décisif"]],
-    ["Khvicha Kvaratskhelia", ["flair", "imprévisible", "puissance", "finition"]],
-    ["Rafael Leão", ["dribbleur explosif", "accélération", "vitesse"]]
+  ailier: [
+    ["Cristiano Ronaldo", ["Puissance", "Technique", "Finition", "Force"]],
+    ["Lionel Messi", ["Dribble", "Vivacité", "Créativité", "Finition", "Précision"]],
+    ["Ronaldinho", ["Magicien", "Dribbles", "Créativité"]],
+    ["Luís Figo", ["Élégance", "Visionnaire", "Centre", "Dribble"]],
+    ["David Beckham", ["Coups francs", "Centre", "Précision"]],
+    ["Arjen Robben", ["Faux pied", "Frappe imparable", "Solide"]],
+    ["Franck Ribéry", ["Percutant", "Imprévisible", "Dynamiteur de défense"]],
+    ["Kylian Mbappé", ["Vitesse", "Technique", "Sens du but"]],
+    ["Eden Hazard", ["Équilibre", "Vitesse", "Créativité", "Puissance"]],
+    ["Ángel Di María", ["Polyvalent", "Technique", "Précision"]],
+    ["Alexis Sánchez", ["Énergique", "Polyvalent", "Vivacité", "Sens du but"]],
+    ["Sadio Mané", ["Puissance", "Explosif", "Imprévisible"]],
+    ["Mohamed Salah", ["Finition", "Dribble"]],
+    ["Ousmane Dembélé", ["Technique", "Deux pieds", "Vitesse", "Fragile"]],
+    ["Adama Traoré", ["Force physique", "Vitesse"]],
+    ["Neymar", ["artiste", "Dribble", "Vitesse", "Feinte"]],
+    ["Vinícius Júnior", ["Provocateur", "Rapide", "Dribble"]],
+    ["Lamine Yamal", ["Récréatif", "Dribble", "Passeur"]],
+    ["Raphinha", ["Timing", "Finition", "Vitesse", "Abnégation"]],
+    ["Michael Olise", ["Technique", "Frappe", "Vision de jeu", "Qualité de passe"]],
+    ["Cole Palmer", ["Calme", "Créativité", "Décisif"]],
+    ["Khvicha Kvaratskhelia", ["Flair", "Imprévisible", "Puissance", "Finition"]],
+    ["Rafael Leão", ["Dribbleur explosif", "Accélération", "Vitesse"]],
+    ["Désiré Doué", ["Dribble", "Fantaisie", "Technique"]]
   ],
 
-  buteurs: [
+  buteur: [
     ["Thierry Henry", ["vitesse", "créativité", "grâce"]],
     ["Luis Suárez", ["rage", "pressing du but", "finition"]],
     ["Robert Lewandowski", ["machine à but", "régularité", "efficacité"]],
@@ -139,7 +143,6 @@ const PLAYERS_BY_CATEGORY = {
     ["Erling Haaland", ["puissance", "vitesse", "finition"]],
     ["David Villa", ["technique", "efficacité"]],
     ["Edinson Cavani", ["volume de jeu", "efficacité", "jeu de tête"]],
-    ["Diego Forlán", ["complet", "deux pieds"]],
     ["Miroslav Klose", ["rigueur", "timing", "jeu de tête"]],
     ["Diego Costa", ["rugueux", "puissance", "caractère"]]
   ]

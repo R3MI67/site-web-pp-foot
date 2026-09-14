@@ -10,17 +10,10 @@
 
 <header class="site-header">
   <a href="index.html" class="logo">MyProg</a>
-  <nav class="site-nav">
-    <a href="index.html">Accueil</a>
-    <a href="infos.html" class="active">Infos</a>
-    <a href="planning.html">Planning</a>
-    <a href="niveau.html">Niveau</a>
-    <a href="matos.html">Matériel</a>
-    <a href="poste.html">Poste</a>
-    <a href="target.html">Target</a>
-    <a href="frequence.html">Fréquence</a>
-    <a href="pp.html">Préparation physique</a>
-  </nav>
+  <div class="progress-wrap" aria-label="Progression du questionnaire">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-text" id="progress-text"></span>
+  </div>
 </header>
 
 <main>
@@ -29,7 +22,7 @@
     <p>Pour mieux te cerner ...</p>
   </section>
 
-  <form id="infos-form" class="infos-form">
+  <form id="infos-form" class="infos-form alert-zone">
     <div class="field-pair">
       <div class="field-group">
         <label for="prenom">Prénom</label>
@@ -71,7 +64,10 @@
     </div>
   </form>
 
-  <a class="cta" href="planning.html">Valider</a>
+  <div class="btn-valider-container">
+    <a href="planning.html" id="valider-infos" class="btn-valider">Valider</a>
+  </div>
+
 </main>
 
 <script src="script.js"></script>

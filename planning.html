@@ -9,18 +9,11 @@
 <body>
 
 <header class="site-header">
-  <a href="index.html" class="logo">Semaine</a>
-  <nav class="site-nav">
-    <a href="index.html">Accueil</a>
-    <a href="infos.html">Infos</a>
-    <a href="planning.html" class="active">Planning</a>
-    <a href="niveau.html">Niveau</a>
-    <a href="matos.html">Matériel</a>
-    <a href="poste.html">Poste</a>
-    <a href="target.html">Target</a>
-    <a href="frequence.html">Fréquence</a>
-    <a href="pp.html">Préparation physique</a>
-  </nav>
+  <a href="index.html" class="logo">MyProg</a>
+  <div class="progress-wrap" aria-label="Progression du questionnaire">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-text" id="progress-text"></span>
+  </div>
 </header>
 
 <main>
@@ -39,7 +32,7 @@
     </div>
   </section>
 
-  <section class="week-board">
+  <section class="week-board alert-zone">
     <div class="day-column">
       <h2>Lundi</h2>
       <div class="drop-zone" data-day="lundi"></div>
@@ -73,8 +66,8 @@
 
   <section>
     <div class="btn-valider-container">
-      <a href="niveau.html" class="btn-valider">Valider</a>
-    </div>
+  <a href="niveau.html" id="valider-planning" class="btn-valider">Valider</a>
+</div>
   </section>
 
 

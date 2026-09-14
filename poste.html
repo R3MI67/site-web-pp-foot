@@ -9,18 +9,11 @@
 <body>
 
 <header class="site-header">
-  <a href="index.html" class="logo">Semaine</a>
-  <nav class="site-nav">
-    <a href="index.html">Accueil</a>
-    <a href="infos.html">Infos</a>
-    <a href="planning.html">Planning</a>
-    <a href="niveau.html">Niveau</a>
-    <a href="matos.html">Matériel</a>
-    <a href="poste.html" class="active">Poste</a>
-    <a href="target.html">Target</a>
-    <a href="frequence.html">Fréquence</a>
-    <a href="pp.html">Préparation physique</a>
-  </nav>
+  <a href="index.html" class="logo">MyProg</a>
+  <div class="progress-wrap" aria-label="Progression du questionnaire">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-text" id="progress-text"></span>
+  </div>
 </header>
 
 <main>
@@ -30,61 +23,65 @@
   </section>
 
   <section class="pitch-wrap">
-    <svg viewBox="0 0 400 600" id="pitch" role="group" aria-label="Terrain de football, sélection du poste">
+    <svg viewBox="0 0 600 400" id="pitch" class="shake-only" role="group" aria-label="Terrain de football, sélection du poste">
       <!-- Terrain -->
-      <rect x="10" y="10" width="380" height="580" fill="var(--pitch)" stroke="var(--card)" stroke-width="3"/>
-      <line x1="10" y1="300" x2="390" y2="300" stroke="var(--card)" stroke-width="2"/>
-      <circle cx="200" cy="300" r="50" fill="none" stroke="var(--card)" stroke-width="2"/>
-      <circle cx="200" cy="300" r="3" fill="var(--card)"/>
-      <rect x="120" y="10" width="160" height="90" fill="none" stroke="var(--card)" stroke-width="2"/>
-      <rect x="120" y="500" width="160" height="90" fill="none" stroke="var(--card)" stroke-width="2"/>
+      <rect x="10" y="10" width="580" height="380" fill="var(--pitch)" stroke="var(--card)" stroke-width="3"/>
+      <line x1="300" y1="10" x2="300" y2="390" stroke="var(--card)" stroke-width="2"/>
+      <circle cx="300" cy="200" r="50" fill="none" stroke="var(--card)" stroke-width="2"/>
+      <circle cx="300" cy="200" r="3" fill="var(--card)"/>
+      <rect x="10" y="120" width="90" height="160" fill="none" stroke="var(--card)" stroke-width="2"/>
+      <rect x="500" y="120" width="90" height="160" fill="none" stroke="var(--card)" stroke-width="2"/>
 
       <!-- Postes -->
       <g class="poste-marker" data-poste="gardien" role="button" tabindex="0" aria-label="Gardien" aria-pressed="false">
-        <circle cx="200" cy="530" r="17"/>
-        <text x="200" y="560" text-anchor="middle">Gardien</text>
+        <circle cx="70" cy="200" r="17"/>
+        <text x="70" y="233" text-anchor="middle">Gardien</text>
       </g>
 
-      <g class="poste-marker" data-poste="lateral-droit" role="button" tabindex="0" aria-label="Latéral droit" aria-pressed="false">
-        <circle cx="330" cy="450" r="17"/>
-        <text x="330" y="480" text-anchor="middle">Latéral droit</text>
+      <g class="poste-marker" data-poste="lateral" role="button" tabindex="0" aria-label="Latéral droit" aria-pressed="false">
+        <circle cx="170" cy="320" r="17"/>
+        <text x="170" y="353" text-anchor="middle">Latéral droit</text>
       </g>
 
-      <g class="poste-marker" data-poste="lateral-gauche" role="button" tabindex="0" aria-label="Latéral gauche" aria-pressed="false">
-        <circle cx="70" cy="450" r="17"/>
-        <text x="70" y="480" text-anchor="middle">Latéral gauche</text>
+      <g class="poste-marker" data-poste="lateral" role="button" tabindex="0" aria-label="Latéral gauche" aria-pressed="false">
+        <circle cx="170" cy="80" r="17"/>
+        <text x="170" y="113" text-anchor="middle">Latéral gauche</text>
       </g>
 
       <g class="poste-marker" data-poste="defenseur-central" role="button" tabindex="0" aria-label="Défenseur central" aria-pressed="false">
-        <circle cx="200" cy="450" r="17"/>
-        <text x="200" y="480" text-anchor="middle">Défenseur central</text>
+        <circle cx="170" cy="200" r="17"/>
+        <text x="170" y="233" text-anchor="middle">
+          <tspan x="170" dy="0">Défenseur</tspan>
+          <tspan x="170" dy="14">central</tspan>
+        </text>
       </g>
 
       <g class="poste-marker" data-poste="milieu" role="button" tabindex="0" aria-label="Milieu" aria-pressed="false">
-        <circle cx="200" cy="350" r="17"/>
-        <text x="200" y="380" text-anchor="middle">Milieu</text>
+        <circle cx="280" cy="200" r="17"/>
+        <text x="280" y="233" text-anchor="middle">Milieu</text>
       </g>
 
-      <g class="poste-marker" data-poste="ailier-droit" role="button" tabindex="0" aria-label="Ailier droit" aria-pressed="false">
-        <circle cx="330" cy="250" r="17"/>
-        <text x="330" y="280" text-anchor="middle">Ailier droit</text>
+      <g class="poste-marker" data-poste="ailier" role="button" tabindex="0" aria-label="Ailier droit" aria-pressed="false">
+        <circle cx="370" cy="320" r="17"/>
+        <text x="370" y="353" text-anchor="middle">Ailier droit</text>
       </g>
 
-      <g class="poste-marker" data-poste="ailier-gauche" role="button" tabindex="0" aria-label="Ailier gauche" aria-pressed="false">
-        <circle cx="70" cy="250" r="17"/>
-        <text x="70" y="280" text-anchor="middle">Ailier gauche</text>
+      <g class="poste-marker" data-poste="ailier" role="button" tabindex="0" aria-label="Ailier gauche" aria-pressed="false">
+        <circle cx="370" cy="80" r="17"/>
+        <text x="370" y="113" text-anchor="middle">Ailier gauche</text>
       </g>
 
       <g class="poste-marker" data-poste="buteur" role="button" tabindex="0" aria-label="Buteur" aria-pressed="false">
-        <circle cx="200" cy="160" r="17"/>
-        <text x="200" y="190" text-anchor="middle">Buteur</text>
+        <circle cx="450" cy="200" r="17"/>
+        <text x="450" y="233" text-anchor="middle">Buteur</text>
       </g>
+      
     </svg>
   </section>
 
   <section>
     <div class="btn-valider-container">
-      <a href="target.html" class="btn-valider">Valider</a>
+      <a href="target.html" id="valider-poste" class="btn-valider">Valider</a>
     </div>
   </section>
 

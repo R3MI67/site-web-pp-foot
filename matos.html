@@ -9,18 +9,11 @@
 <body>
 
 <header class="site-header">
-  <a href="index.html" class="logo">Semaine</a>
-  <nav class="site-nav">
-    <a href="index.html">Accueil</a>
-    <a href="infos.html">Infos</a>
-    <a href="planning.html">Planning</a>
-    <a href="niveau.html">Niveau</a>
-    <a href="matos.html" class="active">Matériel</a>
-    <a href="poste.html">Poste</a>
-    <a href="target.html">Target</a>
-    <a href="frequence.html">Fréquence</a>
-    <a href="pp.html">Préparation physique</a>
-  </nav>
+  <a href="index.html" class="logo">MyProg</a>
+  <div class="progress-wrap" aria-label="Progression du questionnaire">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-text" id="progress-text"></span>
+  </div>
 </header>
 
 <main>
@@ -29,20 +22,20 @@
     <p>Tu as quoi à ta disposition ?</p>
   </section>
 
-  <section class="material-grid" id="material-grid">
-    <div class="material-option" data-material="chaussures" role="button" tabindex="0">
+  <section class="material-grid alert-zone" id="material-grid">
+    <div class="material-option" data-material="maison-vide" role="button" tabindex="0">
       <h3>Maison vide</h3>
       <p>Aucun matériel (pour l'instant), uniquement au poids du corps avec juste de la sueur et de la motivation </p>
     </div>
-    <div class="material-option" data-material="protege-tibias" role="button" tabindex="0">
+    <div class="material-option" data-material="maison-plus" role="button" tabindex="0">
       <h3>Maison équipée</h3>
       <p>Un peu de matériel pour s'amuser : barre de traction, élastiques, poids, etc.</p>
     </div>
-    <div class="material-option" data-material="tenue" role="button" tabindex="0">
+    <div class="material-option" data-material="salle-commerciale" role="button" tabindex="0">
       <h3>Salle commercial</h3>
       <p>Accès à une salle, pas forcément bien équipé, bondé la plupart du temps mais avec le minimum</p>
     </div>
-    <div class="material-option" data-material="sac" role="button" tabindex="0">
+    <div class="material-option" data-material="salle-plus" role="button" tabindex="0">
       <h3>Salle complète</h3>
       <p>De la place et du matériel disponible, avec des sled, des barre, etc.</p>
     </div>
@@ -50,8 +43,8 @@
   </section>
 
   <div class="btn-valider-container">
-      <a href="poste.html" class="btn-valider">Valider</a>
-    </div>
+    <a href="poste.html" id="valider-materiel" class="btn-valider">Valider</a>
+  </div>
 
 </main>
 

@@ -2,101 +2,54 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Choix de la formule</title>
-
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pp — Semaine</title>
+<link rel="stylesheet" href="style.css">
 </head>
+<body>
 
 <body>
 
   <header class="site-header">
-  <a href="index.html" class="logo">Semaine</a>
-  <nav class="site-nav">
-    <a href="index.html">Accueil</a>
-    <a href="infos.html">Infos</a>
-    <a href="planning.html">Planning</a>
-    <a href="niveau.html">Niveau</a>
-    <a href="matos.html">Matériel</a>
-    <a href="poste.html">Poste</a>
-    <a href="target.html">Target</a>
-    <a href="frequence.html">Fréquence</a>
-    <a href="pp.html" class="active">Préparation physique</a>
-  </nav>
+  <a href="index.html" class="logo">MyProg</a>
+  <div class="progress-wrap" aria-label="Progression du questionnaire">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-text" id="progress-text"></span>
+  </div>
 </header>
 
   <main>
 
     <section class="page-intro">
       <h1>Expérience en Préparation Physique</h1>
-      <p>
-        Pour mieux adapté le programme à tes connaissance et pratique d'un point de vue physique. 
-      </p>
+      <p> Pour mieux adapté le programme à tes connaissance et pratique d'un point de vue physique. </p>
     </section>
 
-    <section class="pricing-grid">
-
-      <!-- Option 1 -->
-      <article class="pricing-card">
-        <h2>Aucune</h2>
-
-        <p class="pricing-description">
-          Jusqu'ici je fais du sport pour m'amuser, un peu de technique et tactique sans bosser la partie physique.
-        </p>
-
-        <a href="index.html" class="btn-pricing">
-          Choisir
-        </a>
-      </article>
-
-
-      <!-- Option 2 -->
-      <article class="pricing-card">
-        <h2>Muscu maison</h2>
-
-        <p class="pricing-description">
-          Comme gradur je fais des pompes et tractions mais sans plus, histoire d'avoir un physique correct.
-        </p>
-
-        <a href="index.html" class="btn-pricing">
-          Choisir
-        </a>
-      </article>
-
-
-      <!-- Option 3 -->
-      <article class="pricing-card">
-
-        <h2>Inscrit à la salle</h2>
-
-        <p class="pricing-description">
-          Je suis inscrit à la salle et j'ai déjà des base sur des mouvement complexe du SBD.
-        </p>
-
-        <a href="index.html" class="btn-pricing">
-          Choisir
-        </a>
-      </article>
-
-
-      <!-- Option 4 -->
-      <article class="pricing-card">
-        <h2>Projet athlétique</h2>
-
-        <p class="pricing-description">
-          Je connais les bases de la préparation physique et j'organise mes séances pour être plus performant. Ou du moins j'essais. 
-        </p>
-
-        <a href="index.html" class="btn-pricing">
-          Choisir
-        </a>
-      </article>
-
+    <section class="material-grid alert-zone" id="pp-grid">
+      <div class="material-option" data-material="maison-vide" role="button" tabindex="0">
+        <h3>Aucune</h3>
+        <p>Jusqu'ici je fais du sport pour m'amuser, un peu de technique et tactique sans bosser la partie physique. </p>
+      </div>
+      <div class="material-option" data-material="maison-plus" role="button" tabindex="0">
+        <h3>Muscu maison</h3>
+        <p>Comme gradur je fais des pompes et tractions mais sans plus, histoire d'avoir un physique correct.</p>
+      </div>
+      <div class="material-option" data-material="salle-commerciale" role="button" tabindex="0">
+        <h3>Inscrit à la salle</h3>
+        <p>Je suis inscrit à la salle et on peut dire que je m'entraîne comme un go muscu.</p>
+      </div>
+      <div class="material-option" data-material="salle-plus" role="button" tabindex="0">
+        <h3>Projet athlétique</h3>
+        <p>Je connais les bases de la préparation physique et j'organise mes séances pour être plus performant. Ou du moins j'essais. </p>
+      </div>
     </section>
+
+    <div class="btn-valider-container">
+      <a href="index.html" id="valider-pp" class="btn-valider">Valider</a>
+    </div>
 
   </main>
-
+<script src="script.js"></script>
 </body>
 </html>
