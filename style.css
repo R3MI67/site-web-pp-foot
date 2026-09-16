@@ -160,33 +160,18 @@ main{
 
 .cta:hover{ background: var(--teal-dark); }
 
-.hero-week{
-  display: flex;
-  gap: 0.6rem;
-  align-items: flex-end;
-  height: 220px;
-  padding: 1rem;
-  background: var(--card);
+.hero-image{
+  height: 320px;
+  overflow: hidden;
   border: 1px solid var(--line);
 }
 
-.hero-week .bar{
-  flex: 1;
-  background: var(--bg-soft);
-  border-top: 4px solid var(--teal);
-  position: relative;
-}
-
-.hero-week .bar:nth-child(2n){ border-top-color: var(--gold); }
-
-.hero-week .bar span{
-  position: absolute;
-  bottom: -1.6rem;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 0.7rem;
-  color: var(--ink-soft);
+.hero-photo{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .features{
