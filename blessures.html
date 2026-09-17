@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blessures — Semaine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">MyProg</a>
+  <div class="progress-wrap" aria-label="Progression du questionnaire">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-text" id="progress-text"></span>
+  </div>
+</header>
+
+<main>
+  <section class="page-intro">
+    <h1>Tes blessures</h1>
+    <p>Clique sur un point pour indiquer une blessure passée ou actuelle à cet endroit. Pas de blessure ? Passe directement à la suite.</p>
+  </section>
+
+  <section class="body-row">
+    <div class="body-col">
+      <div class="body-diagram" id="body-front">
+        <img src="images/vue_anterieur.png" alt="Silhouette humaine, vue de face">
+      </div>
+      <p class="pyramid-caption">Vue de face</p>
+    </div>
+    <div class="body-col">
+      <div class="body-diagram" id="body-back">
+        <img src="images/vue_posterieur.png" alt="Silhouette humaine, vue de dos">
+      </div>
+      <p class="pyramid-caption">Vue de dos</p>
+    </div>
+  </section>
+
+  <section class="injury-panel-section">
+    <button type="button" id="autre-btn" class="btn-autre">+ Autre blessure</button>
+
+    <div id="injury-panel" class="injury-panel" style="display:none;">
+      <p class="injury-panel-zone" id="injury-panel-zone"></p>
+      <div class="injury-panel-row">
+        <input type="text" id="injury-detail" placeholder="Précisions (ex: entorse, tendinite...)">
+        <button type="button" id="injury-add-btn" class="cta">Ajouter</button>
+      </div>
+    </div>
+
+    <div class="injury-list" id="injury-list" aria-label="Blessures enregistrées"></div>
+  </section>
+
+  <div class="btn-valider-container">
+    <a href="final.html" id="valider-blessures" class="btn-valider">Valider</a>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

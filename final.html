@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ton programme — Semaine</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">MyProg</a>
+</header>
+
+<main>
+  <section class="page-intro">
+    <h1>Ton programme est prêt</h1>
+    <p>Voici un aperçu construit à partir de ton profil. La suite complète t'attend juste après.</p>
+  </section>
+
+  <section class="qualities-section">
+    <h2 class="category-title">Les qualités qu'on va travailler</h2>
+    <div class="radar-wrap">
+      <canvas id="qualities-radar" width="360" height="360"></canvas>
+    </div>
+  </section>
+
+  <section class="week-preview-section">
+    <h2 class="category-title">Aperçu de ta semaine 1</h2>
+    <div class="week-preview" id="week-preview"></div>
+  </section>
+
+  <div class="btn-valider-container">
+    <a href="https://buy.stripe.com/xxxxx" class="btn-valider" target="_blank" rel="noopener">Débloquer mon programme complet</a>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="players.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

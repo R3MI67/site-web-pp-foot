@@ -788,3 +788,201 @@ main{
   70%  { opacity: 0.6; }
   100% { opacity: 0; }
 }
+
+
+
+
+
+/* ---------- Page Blessures ---------- */
+.body-row{
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 1.8rem 0 2rem;
+}
+
+.body-col{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 280px;
+  width: 100%;
+}
+
+.body-diagram{
+  position: relative;
+  width: 100%;
+}
+
+.body-diagram img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.body-marker{
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px; /* centre le point pile sur ses coordonnées top/left */
+  border-radius: 50%;
+  background: rgba(196, 58, 58, 0.9);
+  border: 2px solid var(--card);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.body-marker:hover{ transform: scale(1.2); }
+
+.body-marker:focus{
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.body-marker.logged{ background: var(--teal); }
+
+.injury-panel-section{
+  max-width: 480px;
+  margin: 0 auto 2rem;
+}
+
+.btn-autre{
+  display: block;
+  margin: 0 auto 1.2rem;
+  background: none;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-btn);
+  padding: 0.6rem 1.1rem;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn-autre:hover{
+  border-color: var(--teal);
+  color: var(--teal-dark);
+}
+
+.injury-panel{
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.injury-panel-zone{
+  margin: 0 0 0.6rem;
+  font-weight: 500;
+  color: var(--teal-dark);
+}
+
+.injury-panel-row{
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.injury-panel-row input{
+  flex: 1 1 200px;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--bg);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.injury-list{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.injury-chip{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-soft);
+  border-radius: var(--radius-chip);
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.injury-chip button{
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ---------- Page finale ---------- */
+.qualities-section,
+.week-preview-section{
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
+}
+
+.radar-wrap{
+  display: flex;
+  justify-content: center;
+}
+
+.week-preview{
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.week-preview-card{
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 1rem 1.2rem;
+  overflow: hidden;
+}
+
+.week-preview-card h3{
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  margin: 0 0 0.4rem;
+  color: var(--teal-dark);
+}
+
+.week-preview-card p{
+  margin: 0.2rem 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.week-preview-card.locked p{
+  filter: blur(4px);
+  user-select: none;
+}
+
+.lock-overlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  background: rgba(251, 250, 246, 0.7);
+  font-size: 1.4rem;
+}
+
+.lock-overlay span{
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.week-preview-empty{
+  color: var(--ink-soft);
+  text-align: center;
+}

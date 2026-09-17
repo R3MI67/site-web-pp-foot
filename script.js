@@ -1,4 +1,5 @@
 
+
 // ---------- Logique globale ----------
 const STEPS = [
   { key: 'infos', file: 'infos.html', label: 'Infos' },
@@ -8,7 +9,8 @@ const STEPS = [
   { key: 'poste', file: 'poste.html', label: 'Poste' },
   { key: 'target', file: 'target.html', label: 'Target' },
   { key: 'frequence', file: 'frequence.html', label: 'Fréquence' },
-  { key: 'pp', file: 'pp.html', label: 'Préparation physique' }
+  { key: 'pp', file: 'pp.html', label: 'Préparation physique' },
+  { key: 'blessures', file: 'blessures.html', label: 'Blessures' }
 ];
 
 function currentStepIndex(){
@@ -562,4 +564,343 @@ document.addEventListener('DOMContentLoaded', () => {
       // pas de e.preventDefault() : le lien navigue normalement vers index.html
     });
   }
+});
+
+
+
+
+
+// ---------- Logique de la page Blessures ----------
+document.addEventListener('DOMContentLoaded', () => {
+  const frontDiagram = document.getElementById('body-front');
+  const backDiagram = document.getElementById('body-back');
+  if (!frontDiagram || !backDiagram) return; // pas sur la page blessures
+
+  const panel = document.getElementById('injury-panel');
+  const panelZone = document.getElementById('injury-panel-zone');
+  const panelInput = document.getElementById('injury-detail');
+  const panelAddBtn = document.getElementById('injury-add-btn');
+  const list = document.getElementById('injury-list');
+  const autreBtn = document.getElementById('autre-btn');
+
+  // Positions en % (top/left) — à ajuster si un point ne tombe pas pile sur l'articulation
+  const MARKERS_FRONT = [
+    { label: 'Tête', top: 5, left: 50 },
+    { label: 'Épaule droite', top: 21, left: 33 },
+    { label: 'Épaule gauche', top: 21, left: 67 },
+    { label: 'Sternum', top: 27, left: 50 },
+    { label: 'Bras droit', top: 35, left: 26 },
+    { label: 'Bras gauche', top: 35, left: 74 },
+    { label: 'Poignet/Main droit', top: 46, left: 12 },
+    { label: 'Poignet/Main gauche', top: 46, left: 88 },
+    { label: 'Sangle abdominale', top: 40, left: 50 },
+    { label: 'Hanche droite', top: 47, left: 44 },
+    { label: 'Hanche gauche', top: 47, left: 56 },
+    { label: 'Cuisse droite', top: 58, left: 42 },
+    { label: 'Cuisse gauche', top: 58, left: 58 },
+    { label: 'Genou droit', top: 71.8, left: 42 },
+    { label: 'Genou gauche', top: 71.8, left: 58 },
+    { label: 'Cheville/Pied droite', top: 93, left: 41 },
+    { label: 'Cheville/Pied gauche', top: 93, left: 59 }
+  ];
+
+  // Vu de dos : gauche/droite anatomiques sont inversées à l'écran par rapport à la vue de face
+  const MARKERS_BACK = [
+    { label: 'Cervicales', top: 15, left: 50 },
+    { label: 'Coiffe droite', top: 21, left: 60 },
+    { label: 'Coiffe gauche', top: 21, left: 40 },
+    { label: 'Colonne vertébrale', top: 28, left: 50 },
+    { label: 'Dos-Lombaire', top: 40, left: 50 },
+    { label: 'Coude droit', top: 35, left: 74 },
+    { label: 'Coude gauche', top: 35, left: 26 },
+
+    { label: 'Fessier droit', top: 49, left: 58 },
+    { label: 'Fessier gauche', top: 49, left: 42 },
+    { label: 'Ischio droit', top: 62, left: 59 },
+    { label: 'Ischio gauche', top: 62, left: 41 },
+    { label: 'Mollet droit', top: 76, left: 59 },
+    { label: 'Mollet gauche', top: 76, left: 41 },
+    { label: 'Talon droite', top: 93, left: 58 },
+    { label: 'Talon gauche', top: 93, left: 42 }
+  ];
+
+  let currentZone = null;
+  const blessures = []; // { zone, detail }
+
+  function renderMarkers(diagram, markers){
+    markers.forEach(m => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'body-marker';
+      btn.style.top = m.top + '%';
+      btn.style.left = m.left + '%';
+      btn.dataset.label = m.label;
+      btn.setAttribute('aria-label', m.label);
+      btn.addEventListener('click', () => openPanel(m.label));
+      diagram.appendChild(btn);
+    });
+  }
+
+  function openPanel(zoneLabel){
+    currentZone = zoneLabel;
+    panelZone.textContent = 'Zone : ' + zoneLabel;
+    panelInput.value = '';
+    panelInput.placeholder = 'Précisions (ex: entorse, tendinite...)';
+    panel.style.display = '';
+    panelInput.focus();
+  }
+
+  function markLogged(zoneLabel){
+    document.querySelectorAll('.body-marker').forEach(m => {
+      if (m.dataset.label === zoneLabel) m.classList.add('logged');
+    });
+  }
+
+  function renderList(){
+    list.innerHTML = '';
+    blessures.forEach((b, i) => {
+      const chip = document.createElement('div');
+      chip.className = 'injury-chip';
+
+      const text = document.createElement('span');
+      text.textContent = b.zone + ' — ' + b.detail;
+      chip.appendChild(text);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.textContent = '×';
+      removeBtn.setAttribute('aria-label', 'Supprimer cette blessure');
+      removeBtn.addEventListener('click', () => {
+        blessures.splice(i, 1);
+        renderList();
+      });
+      chip.appendChild(removeBtn);
+
+      list.appendChild(chip);
+    });
+  }
+
+  panelAddBtn.addEventListener('click', () => {
+    const detail = panelInput.value.trim();
+    if (!detail || !currentZone) return;
+    blessures.push({ zone: currentZone, detail });
+    markLogged(currentZone);
+    renderList();
+    panel.style.display = 'none';
+    currentZone = null;
+  });
+
+  panelInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      panelAddBtn.click();
+    }
+  });
+
+  autreBtn.addEventListener('click', () => {
+    currentZone = 'Autre';
+    panelZone.textContent = 'Zone : Autre';
+    panelInput.value = '';
+    panelInput.placeholder = 'Précise';
+    panel.style.display = '';
+    panelInput.focus();
+  });
+
+  renderMarkers(frontDiagram, MARKERS_FRONT);
+  renderMarkers(backDiagram, MARKERS_BACK);
+
+  const validerLink = document.getElementById('valider-blessures');
+  if (validerLink){
+    validerLink.addEventListener('click', () => {
+      const summary = blessures.length
+        ? blessures.map(b => b.zone + ': ' + b.detail).join(' | ')
+        : 'aucune';
+      saveAnswer('blessures', summary);
+      // pas de e.preventDefault() : navigation normale, blessures optionnel
+    });
+  }
+});
+
+
+
+// ---------- Logique de la page finale (radar + aperçu semaine 1) ----------
+function computeQualities(){
+  const a = getAnswers();
+  const axes = ['Vitesse', 'Force', 'Endurance', 'Puissance', 'Agilité', 'Gainage'];
+
+  const BASELINES = {
+    gardien:    { Vitesse: 50, Force: 55, Endurance: 50, Puissance: 60, Agilité: 70, Gainage: 75 },
+    lateraux:   { Vitesse: 75, Force: 55, Endurance: 80, Puissance: 60, Agilité: 70, Gainage: 55 },
+    defenseurs: { Vitesse: 55, Force: 80, Endurance: 60, Puissance: 50, Agilité: 55, Gainage: 70 },
+    milieux:    { Vitesse: 60, Force: 55, Endurance: 85, Puissance: 80, Agilité: 65, Gainage: 70 },
+    ailiers:    { Vitesse: 85, Force: 50, Endurance: 65, Puissance: 75, Agilité: 80, Gainage: 55 },
+    buteurs:    { Vitesse: 70, Force: 60, Endurance: 55, Puissance: 70, Agilité: 65, Gainage: 80 }
+  };
+
+  const POSTE_TO_CATEGORY = {
+    gardien: 'gardien',
+    'lateral-droit': 'lateraux', 'lateral-gauche': 'lateraux', 'lateral': 'lateraux',
+    'defenseur-central': 'defenseurs',
+    milieu: 'milieux',
+    'ailier-droit': 'ailiers', 'ailier-gauche': 'ailiers', 'ailier': 'ailiers',
+    buteur: 'buteurs'
+  };
+
+  const category = POSTE_TO_CATEGORY[a.poste] || 'milieux';
+  const values = { ...BASELINES[category] };
+
+  // Niveau : plus le niveau est élevé dans la pyramide, plus les exigences augmentent sur tous les axes
+  const levelsHomme = ['L1','L2','L3','N2','N3','R1','R2','R3','D1','D2','D3','D4','D5','D6','D7','D8'];
+  const levelsFemme  = ['L1','L2','L3','R1F','R2F','R3F','D1F','D2F','D3F','D4F','D5F'];
+  const scale = a.sexe === 'femme' ? levelsFemme : levelsHomme;
+  const idx = scale.indexOf(a.niveau);
+  const tier = idx === -1 ? 0.5 : 1 - (idx / (scale.length - 1)); // proche de 1 pour les hauts niveaux
+
+  axes.forEach(axis => {
+    values[axis] = Math.round(values[axis] + (100 - values[axis]) * tier * 0.35);
+  });
+
+  // Fréquence : plus de séances par semaine → capacité d'endurance visée plus haute
+  const freq = parseInt(a.frequence, 10) || 2;
+  values.Endurance = Math.min(100, values.Endurance + (freq - 1) * 6);
+
+  // Âge : en dessous de 15 ans, moins de force pure, plus de Puissance/agilité
+  if (a.naissance){
+    const age = Math.floor((Date.now() - new Date(a.naissance)) / (365.25 * 24 * 3600 * 1000));
+    if (age < 15){
+      values.Force = Math.round(values.Force * 0.85);
+      values.Puissance = Math.min(100, Math.round(values.Puissance * 1.1));
+      values.Agilité = Math.min(100, Math.round(values.Agilité * 1.1));
+    }
+  }
+
+  // Joueur target : ses qualités dominantes tirent un peu le profil vers son style
+  if (a.target && typeof PLAYERS_BY_CATEGORY !== 'undefined'){
+    const AXIS_KEYWORDS = {
+      Vitesse: ['vitesse', 'rapide', 'explosif', 'vif'],
+      Force: ['puissance', 'force', 'roc défensif', 'puissant'],
+      Endurance: ['endurance', 'infatigable', 'volume de jeu', 'régularité'],
+      Puissance: ['Puissance', 'dribble', 'conduite de balle', 'qualité de passe', 'toucher de balle'],
+      Agilité: ['agilité', 'vivacité', 'dribbleur', 'souplesse'],
+      Gainage: ['mental', 'leadership', 'calme', 'sérénité', 'exemplaire', 'sang-froid']
+    };
+    let tags = [];
+    Object.values(PLAYERS_BY_CATEGORY).forEach(list => {
+      const found = list.find(([name]) => name === a.target);
+      if (found) tags = found[1];
+    });
+    tags.forEach(tag => {
+      const tagLower = tag.toLowerCase();
+      axes.forEach(axis => {
+        if (AXIS_KEYWORDS[axis].some(kw => tagLower.includes(kw))){
+          values[axis] = Math.min(100, values[axis] + 8);
+        }
+      });
+    });
+  }
+
+  // Blessures : légère prudence sur vitesse/agilité si une blessure a été signalée
+  if (a.blessures && a.blessures !== 'aucune'){
+    values.Vitesse = Math.max(0, values.Vitesse - 8);
+    values.Agilité = Math.max(0, values.Agilité - 8);
+  }
+
+  return { axes, values: axes.map(axis => Math.max(0, Math.min(100, values[axis]))) };
+}
+
+function renderRadar(){
+  const canvas = document.getElementById('qualities-radar');
+  if (!canvas || typeof Chart === 'undefined') return;
+
+  const { axes, values } = computeQualities();
+
+  new Chart(canvas, {
+    type: 'radar',
+    data: {
+      labels: axes,
+      datasets: [{
+        label: 'Ton profil cible',
+        data: values,
+        backgroundColor: 'rgba(47, 93, 83, 0.25)',
+        borderColor: '#2F5D53',
+        pointBackgroundColor: '#2F5D53'
+      }]
+    },
+    options: {
+      scales: {
+        r: {
+          min: 0,
+          max: 100,
+          ticks: { display: false },
+          grid: { color: '#CFC9B8' },
+          angleLines: { color: '#CFC9B8' },
+          pointLabels: { color: '#23262A', font: { size: 13 } }
+        }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+
+function renderWeekPreview(){
+  const container = document.getElementById('week-preview');
+  if (!container) return;
+
+  const planningRaw = getAnswers().planning;
+  if (!planningRaw || planningRaw === 'vide'){
+    container.innerHTML = '<p class="week-preview-empty">Ton planning n\'a pas encore été renseigné.</p>';
+    return;
+  }
+
+  const days = planningRaw.split(',').map(part => {
+    const [day, acts] = part.split(':');
+    return { day, activities: acts ? acts.split('+') : [] };
+  });
+
+  const { axes, values } = computeQualities();
+  const ranked = axes
+    .map((axis, i) => ({ axis, score: values[i] }))
+    .sort((a, b) => b.score - a.score);
+
+  const EXOS = {
+    Vitesse: 'Sprints courts (6x20m) + Puissance de course',
+    Force: 'Squats, fentes, gainage renforcé',
+    Endurance: 'Circuit intermittent 20 min + récupération active',
+    Puissance: 'Ateliers de conduite de balle et petits jeux Puissances',
+    Agilité: 'Échelle de rythme + changements de direction',
+    Gainage: 'Visualisation + mise en situation de pression'
+  };
+
+  days.forEach((d, i) => {
+    const card = document.createElement('div');
+    card.className = 'week-preview-card';
+
+    const title = document.createElement('h3');
+    title.textContent = d.day;
+    card.appendChild(title);
+
+    if (i === 0){
+      [ranked[0].axis, ranked[1].axis].forEach(axis => {
+        const p = document.createElement('p');
+        p.textContent = EXOS[axis];
+        card.appendChild(p);
+      });
+    } else {
+      card.classList.add('locked');
+      const lock = document.createElement('div');
+      lock.className = 'lock-overlay';
+      lock.innerHTML = '🔒<span>Débloque pour voir le détail</span>';
+      card.appendChild(lock);
+      const filler = document.createElement('p');
+      filler.textContent = d.activities.join(' + ');
+      card.appendChild(filler);
+    }
+
+    container.appendChild(card);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderRadar();
+  renderWeekPreview();
 });
