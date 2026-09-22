@@ -726,86 +726,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---------- Logique de la page finale (radar + aperçu semaine 1) ----------
 function computeQualities(){
   const a = getAnswers();
-  const axes = ['Vitesse', 'Force', 'Endurance', 'Puissance', 'Agilité', 'Gainage'];
+  const groupKey = PLAYER_TO_GROUP[a.target] || DEFAULT_RADAR_GROUP;
+  const groupValues = RADAR_GROUPS[groupKey] || RADAR_GROUPS[DEFAULT_RADAR_GROUP];
 
-  const BASELINES = {
-    gardien:    { Vitesse: 50, Force: 55, Endurance: 50, Puissance: 60, Agilité: 70, Gainage: 75 },
-    lateraux:   { Vitesse: 75, Force: 55, Endurance: 80, Puissance: 60, Agilité: 70, Gainage: 55 },
-    defenseurs: { Vitesse: 55, Force: 80, Endurance: 60, Puissance: 50, Agilité: 55, Gainage: 70 },
-    milieux:    { Vitesse: 60, Force: 55, Endurance: 85, Puissance: 80, Agilité: 65, Gainage: 70 },
-    ailiers:    { Vitesse: 85, Force: 50, Endurance: 65, Puissance: 75, Agilité: 80, Gainage: 55 },
-    buteurs:    { Vitesse: 70, Force: 60, Endurance: 55, Puissance: 70, Agilité: 65, Gainage: 80 }
-  };
-
-  const POSTE_TO_CATEGORY = {
-    gardien: 'gardien',
-    'lateral-droit': 'lateraux', 'lateral-gauche': 'lateraux', 'lateral': 'lateraux',
-    'defenseur-central': 'defenseurs',
-    milieu: 'milieux',
-    'ailier-droit': 'ailiers', 'ailier-gauche': 'ailiers', 'ailier': 'ailiers',
-    buteur: 'buteurs'
-  };
-
-  const category = POSTE_TO_CATEGORY[a.poste] || 'milieux';
-  const values = { ...BASELINES[category] };
-
-  // Niveau : plus le niveau est élevé dans la pyramide, plus les exigences augmentent sur tous les axes
-  const levelsHomme = ['L1','L2','L3','N2','N3','R1','R2','R3','D1','D2','D3','D4','D5','D6','D7','D8'];
-  const levelsFemme  = ['L1','L2','L3','R1F','R2F','R3F','D1F','D2F','D3F','D4F','D5F'];
-  const scale = a.sexe === 'femme' ? levelsFemme : levelsHomme;
-  const idx = scale.indexOf(a.niveau);
-  const tier = idx === -1 ? 0.5 : 1 - (idx / (scale.length - 1)); // proche de 1 pour les hauts niveaux
-
-  axes.forEach(axis => {
-    values[axis] = Math.round(values[axis] + (100 - values[axis]) * tier * 0.35);
-  });
-
-  // Fréquence : plus de séances par semaine → capacité d'endurance visée plus haute
-  const freq = parseInt(a.frequence, 10) || 2;
-  values.Endurance = Math.min(100, values.Endurance + (freq - 1) * 6);
-
-  // Âge : en dessous de 15 ans, moins de force pure, plus de Puissance/agilité
-  if (a.naissance){
-    const age = Math.floor((Date.now() - new Date(a.naissance)) / (365.25 * 24 * 3600 * 1000));
-    if (age < 15){
-      values.Force = Math.round(values.Force * 0.85);
-      values.Puissance = Math.min(100, Math.round(values.Puissance * 1.1));
-      values.Agilité = Math.min(100, Math.round(values.Agilité * 1.1));
-    }
-  }
-
-  // Joueur target : ses qualités dominantes tirent un peu le profil vers son style
-  if (a.target && typeof PLAYERS_BY_CATEGORY !== 'undefined'){
-    const AXIS_KEYWORDS = {
-      Vitesse: ['vitesse', 'rapide', 'explosif', 'vif'],
-      Force: ['puissance', 'force', 'roc défensif', 'puissant'],
-      Endurance: ['endurance', 'infatigable', 'volume de jeu', 'régularité'],
-      Puissance: ['Puissance', 'dribble', 'conduite de balle', 'qualité de passe', 'toucher de balle'],
-      Agilité: ['agilité', 'vivacité', 'dribbleur', 'souplesse'],
-      Gainage: ['mental', 'leadership', 'calme', 'sérénité', 'exemplaire', 'sang-froid']
-    };
-    let tags = [];
-    Object.values(PLAYERS_BY_CATEGORY).forEach(list => {
-      const found = list.find(([name]) => name === a.target);
-      if (found) tags = found[1];
-    });
-    tags.forEach(tag => {
-      const tagLower = tag.toLowerCase();
-      axes.forEach(axis => {
-        if (AXIS_KEYWORDS[axis].some(kw => tagLower.includes(kw))){
-          values[axis] = Math.min(100, values[axis] + 8);
-        }
-      });
-    });
-  }
-
-  // Blessures : légère prudence sur vitesse/agilité si une blessure a été signalée
-  if (a.blessures && a.blessures !== 'aucune'){
-    values.Vitesse = Math.max(0, values.Vitesse - 8);
-    values.Agilité = Math.max(0, values.Agilité - 8);
-  }
-
-  return { axes, values: axes.map(axis => Math.max(0, Math.min(100, values[axis]))) };
+  const values = RADAR_AXES.map(axis => groupValues[axis] ?? 50);
+  return { axes: RADAR_AXES, values };
 }
 
 function renderRadar(){

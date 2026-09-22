@@ -161,7 +161,7 @@ main{
 .cta:hover{ background: var(--teal-dark); }
 
 .hero-image{
-  height: 320px;
+  height: 400px;
   overflow: hidden;
   border: 1px solid var(--line);
 }
