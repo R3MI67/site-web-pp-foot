@@ -934,7 +934,11 @@ html { scroll-behavior: smooth; }
 
 
 
-
+.logo-img {
+  height: 50px;      /* Ajustez selon votre logo */
+  width: auto;
+  display: block;
+}
 
 
 
