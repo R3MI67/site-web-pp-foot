@@ -986,3 +986,74 @@ main{
   color: var(--ink-soft);
   text-align: center;
 }
+
+
+
+
+
+
+
+
+/* ========== LOADER page à la finale ========== */
+#loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0d0d0d;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease;
+}
+
+#loader-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#loader-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.loader-line {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.loader-line.visible {
+  opacity: 1;
+}
+
+.loader-line.done .line-icon {
+  color: #4ade80; /* vert */
+}
+
+/* Spinner */
+.line-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+/* Coche */
+.line-check {
+  width: 16px;
+  height: 16px;
+  color: #4ade80;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

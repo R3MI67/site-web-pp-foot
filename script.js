@@ -771,16 +771,31 @@ function renderWeekPreview(){
   const container = document.getElementById('week-preview');
   if (!container) return;
 
-  const planningRaw = getAnswers().planning;
+  const answers = getAnswers();
+  const planningRaw = answers.planning;
+  const frequence = parseInt(answers.frequence) || 3;
+
   if (!planningRaw || planningRaw === 'vide'){
     container.innerHTML = '<p class="week-preview-empty">Ton planning n\'a pas encore été renseigné.</p>';
     return;
   }
 
-  const days = planningRaw.split(',').map(part => {
-    const [day, acts] = part.split(':');
-    return { day, activities: acts ? acts.split('+') : [] };
-  });
+  // Jours où il s'entraîne en club
+  const clubDays = planningRaw.split(',').map(part => part.split(':')[0].trim());
+
+  // Tous les jours de la semaine
+  const ALL_DAYS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+
+  // Jours disponibles = ceux qui ne sont PAS des jours de club
+  const availableDays = ALL_DAYS.filter(d => !clubDays.includes(d));
+
+  // On limite au nombre de séances choisies (fréquence)
+  const sessionDays = availableDays.slice(0, frequence);
+
+  if (sessionDays.length === 0){
+    container.innerHTML = '<p class="week-preview-empty">Aucun jour disponible pour les séances.</p>';
+    return;
+  }
 
   const { axes, values } = computeQualities();
   const ranked = axes
@@ -788,20 +803,20 @@ function renderWeekPreview(){
     .sort((a, b) => b.score - a.score);
 
   const EXOS = {
-    Vitesse: 'Sprints courts (6x20m) + Puissance de course',
-    Force: 'Squats, fentes, gainage renforcé',
-    Endurance: 'Circuit intermittent 20 min + récupération active',
-    Puissance: 'Ateliers de conduite de balle et petits jeux Puissances',
-    Agilité: 'Échelle de rythme + changements de direction',
-    Gainage: 'Visualisation + mise en situation de pression'
+    Vitesse:   'Sprints Vmax 3x20m + sled push @50% PDC 3x15m',
+    Force:     'Squats + Développé couché 5x5 linéaire @80-85% 3min rest',
+    Endurance: 'Endurance spécifique au poste',
+    Puissance: '3x Squat lourd 3RM + 3x Box jump + 5x Jump squat BD @15% PDC + 3x Broad Jump',
+    Agilité:   'Curve Sprint 6x20 récup complète + Poggo jump',
+    Gainage:   'Palof press 4x8 /coté + KB plank 4x10'
   };
 
-  days.forEach((d, i) => {
+  sessionDays.forEach((day, i) => {
     const card = document.createElement('div');
     card.className = 'week-preview-card';
 
     const title = document.createElement('h3');
-    title.textContent = d.day;
+    title.textContent = day;
     card.appendChild(title);
 
     if (i === 0){
@@ -816,9 +831,6 @@ function renderWeekPreview(){
       lock.className = 'lock-overlay';
       lock.innerHTML = '🔒<span>Débloque pour voir le détail</span>';
       card.appendChild(lock);
-      const filler = document.createElement('p');
-      filler.textContent = d.activities.join(' + ');
-      card.appendChild(filler);
     }
 
     container.appendChild(card);
@@ -829,3 +841,63 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRadar();
   renderWeekPreview();
 });
+
+
+
+
+
+// ========== LOADER ==========
+(function () {
+  // 👇 Tes 4 étapes personnalisables
+  const steps = [
+    { text: "Analyse de ton profil…",        duration: 1400 },
+    { text: "Construction du programme…",    duration: 2200 },
+    { text: "Sélection des exercices…",      duration: 900  },
+    { text: "Finalisation de ta semaine…",   duration: 1700 },
+  ];
+
+  const container = document.getElementById("loader-steps");
+  const overlay   = document.getElementById("loader-overlay");
+
+  function createLine(text) {
+    const line = document.createElement("div");
+    line.className = "loader-line";
+    line.innerHTML = `
+      <span class="line-spinner"></span>
+      <span>${text}</span>
+    `;
+    container.appendChild(line);
+    // Déclenche l'apparition
+    requestAnimationFrame(() => requestAnimationFrame(() => line.classList.add("visible")));
+    return line;
+  }
+
+  function finishLine(line) {
+    line.classList.add("done");
+    line.querySelector(".line-spinner").outerHTML = `
+      <svg class="line-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="2.5,8 6.5,12 13.5,4"/>
+      </svg>
+    `;
+  }
+
+  function runSteps(i) {
+    if (i >= steps.length) {
+      // Toutes les étapes finies → fondu
+      setTimeout(() => {
+        overlay.classList.add("fade-out");
+        setTimeout(() => overlay.remove(), 650);
+      }, 400);
+      return;
+    }
+
+    const line = createLine(steps[i].text);
+
+    setTimeout(() => {
+      finishLine(line);
+      setTimeout(() => runSteps(i + 1), 300);
+    }, steps[i].duration);
+  }
+
+  runSteps(0);
+})();
